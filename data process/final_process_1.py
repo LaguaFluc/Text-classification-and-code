@@ -13,39 +13,39 @@ class InitialProcess(object):
     path_initial = r'D:\lagua\study\coding\pythonPractice\DataProcess\MT.csv' # 从美团上获取的初始文本---经过修改，得到也是带有index的文本
     path_meituan = r'D:\lagua\study\coding\pythonPractice\DataProcess\MeiTuan.csv'# 数据处理第一道得到的index文本
     # 去重
-    def noRepeat(self,x):
+    def noRepeat(self, x):
         uni = []
         for v in x:
             if v not in uni:
                 uni.append(v)
         return uni
     # 去除只带有标签的评论
-    def noTags(self,x):
+    def noTags(self, x):
         def f_replace(x):
             temp =  x.replace('【口味】','').replace('【环境】','').replace('【服务】','').replace('【等位】','').replace('\n','').strip()
             return temp
         return [f_replace(v) for v in x]
     # 将空字符串去掉
-    def noVocant(self,x):
+    def noVocant(self, x):
         temp = [v for v in x if v is not '']
         return temp
     # 读取之前获取的数据
-    def getData(self,path):
+    def getData(self, path):
         seg_all = []
-        with open(path,'r',encoding='utf-8') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             reader = csv.reader(f)
             for line in reader:
                 seg_all.append(line[1])
         print("列表说：我将csv中的数据搞到手啦") # 仅仅获取评论文本内容，在csv文件每一行的第二列
         return self.noRepeat(seg_all)
     
-    def get_index(self,x):
+    def get_index(self, x):
         temp = [i for i,v in enumerate(x) if v=='']
         return temp
 
     # 将文件写进csv文件中
-    def writeCSV(self,path2,data):
-        with open(path2,'w',encoding='utf-8',newline='') as f:
+    def writeCSV(self, path2, data):
+        with open(path2, 'w', encoding='utf-8', newline='') as f:
             writer = csv.writer(f)
             for k,v in enumerate(data):
                 writer.writerow([k,v])

@@ -101,10 +101,10 @@ for shop_id in ids:
 在写进文件夹之后直接根据相应的评论长度建立一个index，将它与相应的comments写入到csv文件中
 """
 # 底下是将数据写入到csv文件中，要指明为utf-8，否则会出现乱码
-with open(r'D:\lagua\study\coding\pythonPractice\MT_test.csv', 'w+', encoding='utf-8',newline='') as f:
+with open(r'D:\lagua\study\coding\pythonPractice\MT_test.csv', 'w+', encoding='utf-8', newline='') as f:
     writer = csv.writer(f)
     to_be_write = []
     index_= list(range(len(comments_))) # 序列号
-    for v1,v2 in zip(index_,comments_):# 将两个列表打包
-        to_be_write.append([v1,v2]) # 最后得到的是[[1,'a'],[2,'b'],[3,'c']]这样的形式，可以用writerows写进csv文件中
+    for v1,v2 in zip(index_, comments_):# 将两个列表打包
+        to_be_write.append([v1, v2]) # 最后得到的是[[1,'a'],[2,'b'],[3,'c']]这样的形式，可以用writerows写进csv文件中
     writer.writerows(to_be_write)##### 注意此处写入是用的元组---用元组形式写入，事实上得到的是列表

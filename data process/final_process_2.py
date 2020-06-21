@@ -22,16 +22,16 @@ path_posi = r'D:\lagua\study\coding\pythonPractice\DataProcess\posi_newMeiTuan.t
 # 读取类别
 def get_class():
     class_ = []
-    with open(path_class,'r',encoding='utf-8',errors='ignore',newline='') as f:
+    with open(path_class, 'r', encoding='utf-8', errors='ignore', newline='') as f:
         reader = csv.reader(f)
         for line in reader:
-            temp = line[0].replace('\n','').strip()
+            temp = line[0].replace('\n', '').strip()
             class_.append(int(temp))
     return class_
 # 获取数据--文本评论
 def getData(path): # 获取数据
     seg_all = []
-    with open(path,'r',encoding='utf-8') as f:
+    with open(path, 'r', encoding='utf-8') as f:
         reader = csv.reader(f)
         for line in reader:
             seg_all.append(line[1]) # csv第一列是index，第二列是文本评论
@@ -40,14 +40,14 @@ def get_index(x): # 获得待删除的Index
     temp = [i for i,v in enumerate(x) if v=='']
     return temp
 # 根据index删除元素---主要针对comments来讲
-def delete_comments_accord_index(x,index): # 针对comments删除元素
+def delete_comments_accord_index(x, index): # 针对comments删除元素
     to_be_delete = [v for i,v in enumerate(x) if i in index]
     for i in to_be_delete:
         x.remove(i)
     return x
 # 根据index删除元素，对class来讲
 # class中的元素只有1,-1处理方式和comments不一样
-def delete_class_accord_index(class_,index): # 针对class删除元素
+def delete_class_accord_index(class_, index): # 针对class删除元素
     temp = []
     for i,v in enumerate(class_):
         if i not in index:
@@ -63,15 +63,15 @@ def splitOther(data_split):
     返回：是空元素的index + 待被去除index的文本---以元组的形式返回
     """
     def re_split(desstr):
-        temp = ''.join(re.split(r'\W',desstr))
+        temp = ''.join(re.split(r'\W', desstr))
         return temp
     temp = [re_split(desstr) for desstr in data_split]
     # 获得待删除的index
     index = get_index(temp)
-    return (index,temp)
+    return (index, temp)
 
 # 由index删除列表元素
-def indexProcess(func,last_comments,last_class): 
+def indexProcess(func, last_comments, last_class): 
     """
     params:
     func:清洗数据的某个函数
@@ -82,14 +82,14 @@ def indexProcess(func,last_comments,last_class):
     """
     noFunc_index = func(last_comments)[0]
     noFunc_comments = func(last_comments)[1]
-    comments_noFunc = delete_comments_accord_index(noFunc_comments,noFunc_index)
-    class_noFunc = delete_class_accord_index(last_class,noFunc_index)
-    return (comments_noFunc,class_noFunc)
+    comments_noFunc = delete_comments_accord_index(noFunc_comments, noFunc_index)
+    class_noFunc = delete_class_accord_index(last_class, noFunc_index)
+    return (comments_noFunc, class_noFunc)
 
 def splitStop(data_split): # 创建停用词列表
     # 从txt文档中读取停用词，放进列表中
     def stopwordslist(): # 返回列表
-        with open(path_stop,'r',encoding='utf-8', errors='ignore') as f:
+        with open(path_stop, 'r', encoding='utf-8', errors='ignore') as f:
             stopwords = [line.strip() for line in f.readlines()]
         return stopwords
 
@@ -106,21 +106,21 @@ def splitStop(data_split): # 创建停用词列表
         return final
     splitStopData = [cutStopWords(v) for v in data_split]
     index = [i for i,v in enumerate(splitStopData) if v=='']
-    return (index,splitStopData)
+    return (index, splitStopData)
 
 # 自己检查使用，看是否将文本与标签相对应
-def wirteClass(path_neg,path_posi,comments,class_): # 根据类别写文档
-    file_neg = open(path_neg,'w',encoding = 'utf-8',errors='ignore')
-    file_posi = open(path_posi,'w',encoding = 'utf-8',errors = 'ignore')
+def wirteClass(path_neg, path_posi, comments,class_): # 根据类别写文档
+    file_neg = open(path_neg, 'w', encoding = 'utf-8', errors='ignore')
+    file_posi = open(path_posi, 'w', encoding = 'utf-8', errors = 'ignore')
     for i,v in enumerate(noStopWord_comments):
         # 使用try...except 来检测读写过程中的错误---方便之后在这里修改
         try:
-            if noStopWord_class[i]==-1:
+            if noStopWord_class[i] == -1:
                 file_neg.write(v+'\n')
             else:
                 file_posi.write(v+'\n')
         except:
-            # 可以再详细一些，给出提示，看是哪些具体的错误
+            # TODO: 可以再详细一些，给出提示，看是哪些具体的错误
             print('Error')
     file_neg.close()
     file_posi.close()
@@ -129,7 +129,7 @@ comments = getData(path_meituan) # 获取评论
 
 # 充当过滤链
 #-----------------------------------------------------------
-noOtherWord_comments,noOtherWord_class= indexProcess(splitOther,comments,class_) # 根据index处理comments和class
-noStopWord_comments,noStopWord_class=indexProcess(splitStop,noOtherWord_comments,noOtherWord_class)
+noOtherWord_comments,noOtherWord_class= indexProcess(splitOther, comments,class_) # 根据index处理comments和class
+noStopWord_comments,noStopWord_class=indexProcess(splitStop, noOtherWord_comments, noOtherWord_class)
 #-----------------------------------------------------------
-wirteClass(path_neg,path_posi,noStopWord_comments,noStopWord_class)
+wirteClass(path_neg, path_posi, noStopWord_comments, noStopWord_class)

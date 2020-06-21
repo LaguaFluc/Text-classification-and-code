@@ -31,16 +31,16 @@ class ParseId(object):
         id_list = []
         k = 1
         for v in self.urls:
-            html = requests.get(v,headers = self.headers)
+            html = requests.get(v, headers = self.headers)
             # 进行正则匹配，寻求店铺id信息
             re_info = re.compile(r'\"poiId\":(\d{4,})')
             id = re_info.findall(html.text)# 获得的是列表            
             # 想利用writerows将列表添加到csv文件中
             for v in id:
-                id_list.append((k,v))
+                id_list.append((k, v))
                 k+=1
         # 将店铺ID保存到CSV文件中
-        with open(r'D:\lagua\study\coding\pythonPractice\meituanComment\poId.csv','w+',newline="") as f:
+        with open(r'D:\lagua\study\coding\pythonPractice\meituanComment\poId.csv', 'w+', newline="") as f:
             writer = csv.writer(f)          
             writer.writerows(id_list)        
         temp_id = []
