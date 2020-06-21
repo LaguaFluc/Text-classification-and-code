@@ -2,16 +2,22 @@
 # 文件内容简介
 文件流程：[data collection](./data%20collection) --> [data process](./data%20process) --> [Classification](./Classification)
 
+
 具体每个文件下的文件：
+
 [data collection](./data%20collection):
+
 [parase_id_comments.py](./data%20collection/parse_id_comments.py)获取店铺ID，方便下一步[parase_restaurant_id.py](./data%20collection/parse_restaurant_id.py)根据店铺ID来获取评论。
 
+
 [data process](./data%20process):
+
 [final_process_1.py](./data%20process/final_process_1.py)初步处理数据。
 1、去重，作为初始数据处理。
 2、去空tag【】【】。
 3、去除空字符串''。
 得到我想要的数据，进行人工标记。
+
 [final_process_2.py](./data%20process/final_process_2.py)数据第二步清洗。
 1、读取文本数据+相应类别，各自分别放进comments和class_的列表中。
 2、使用正则表达式去除其他符号。
@@ -20,12 +26,15 @@
 
 
 [Classification](./Classification):
+
 [data_preprocessed.py](./Classification/data_preprocessed.py)
 文件目标：拿出数据，文本数据向量化，方便放进分类器中训练。
 1、拿出由数据清洗得到的数据
 2、将文本数据转化为分类器可以识别的形式，即可以使用数值向量化程序将文本数据转化为数值数据。eg: ['你', '今天', ‘很’, '好看']---->「你 今天 很 好看」，两个文本单词之间用单词隔开.
 3、将已有的数据切分为训练数据和测试数据.
 4、数据标准化，将数据通过变换，映射到一定的范围之内，消除不同的量纲对分类性能产生影响。
+
+
 [k_neighbors_test_5.py](./Classification/k_neighbors_test_5.py)
 文档执行步骤：
 1、获取数据--将数据向量化--获取需要处理的矩阵--并且与y类别相对应
@@ -39,12 +48,16 @@
             这里可以有所改进的，如果想要尝试改变不同分类器的分类效果（目的），暂时不对比各种分类器之间的分类效果，
             只考虑如何提供分类器的性能，可以先分析样本的具体特征，结合不同的归一化方法预处理
     （2）使用交叉验证的方法，来使分类器更为精确----在这里我还没有使用，等使用了就将此解释去掉。
+
+
 [naive_bayes_test_5.py](./Classification/naive_bayes_test_5.py)
 跟KNN一样，有以下几个步骤：
 1、导入数据： 训练数据 + 测试数据
 2、将训练数据放进训练中训练，得到模型
 3、将测试数据放进模型中，得到结果
 4、评估结果，混淆矩阵。
+
+
 [svm_test_4.py](./Classification/svm_test_4.py)
 1、导入数据
 2、数据放进训练器中，训练得到模型
@@ -52,10 +65,15 @@
 4、评估模型.
 
 [Related Files](./Related%20Files):
+
 [poId.csv](./Related%20Files/poId.csv)店铺的ID.
+
 [MeiTuan.csv](./Related%20Files/MeiTuan.csv)根据店铺ID获取的店铺评论。
+
 [neg_newMeiTuan.txt](./Related%20Files/neg_newMeiTuan.txt)手工标记得到的正类文本的文档。
+
 [posi_newMeiTuan.txt](./Related%20Files/posi_newMeiTuan.txt_newMeiTuan.txt)手工标记得到的负类文本的文档。
+
 [stopWords.txt](./Related%20Files/stopWords_3.txt)停用词文档。其中去除了一些停用词，例如不，因为如果是不好吃，去掉不就变成了好吃了。这会影响到文本的正面和负面情感，故删去。
 
 
