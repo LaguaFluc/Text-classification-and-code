@@ -15,13 +15,13 @@
 [final_process_1.py](./data%20process/final_process_1.py)初步处理数据。
 1. 去重，作为初始数据处理。
 2. 去空tag【】【】。
-3. 去除空字符串''。
+3. 去除空字符串`''`。
 得到我想要的数据，进行人工标记。
 
 [final_process_2.py](./data%20process/final_process_2.py)数据第二步清洗。
 1. 读取文本数据+相应类别，各自分别放进comments和class_的列表中。
 2. 使用正则表达式去除其他符号。
-3. 从停用词列表中读取数据，去除停用词，每个文本得到的剩下单词用' '空格连接起来。
+3. 从停用词列表中读取数据，去除停用词，每个文本得到的剩下单词用`' '`空格连接起来。
 4. 将分类所得到的正负文本放进不同的文档中，自己检查看大体上是否分类正确。
 
 
@@ -70,6 +70,8 @@
 [Related Files](./Related%20Files):
 
 [poId.csv](./Related%20Files/poId.csv)店铺的ID.
+
+[class_.csv](./Related%20Files/class_.csv)清洗数据后，手工标记文本文件，通过python文件读取得到的文本标记。
 
 [MeiTuan.csv](./Related%20Files/MeiTuan.csv)根据店铺ID获取的店铺评论。
 
