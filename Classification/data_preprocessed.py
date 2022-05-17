@@ -10,7 +10,7 @@ import numpy as np
 def get_preprocessed(): 
     max_f = 200  
     """步骤1"""
-    from last_process_2 import noStopWord_comments,noStopWord_class # import评论数据所在的模块
+    from final_process_2 import noStopWord_comments,noStopWord_class # import评论数据所在的模块
     import re 
     from sklearn.feature_extraction.text import TfidfVectorizer,CountVectorizer # 将文本数据转化为数值数据的模块
     from sklearn.decomposition import PCA # 以后尝试使用pca降维
